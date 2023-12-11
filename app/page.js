@@ -10,7 +10,10 @@ const Home = () => {
           Powered Search Projects
         </span>
       </h1>
-      <p className="desc text-center"></p>
+      <p className="desc text-center">
+        SearchK is a tool for searching projects by keywords made in Next JS
+        that uses a non-relational database - Elasticsearch
+      </p>
     </section>
   );
 };

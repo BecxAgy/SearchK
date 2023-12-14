@@ -7,19 +7,18 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
-  const isUserLogged = true;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const getProviders = async () => {
+    (async () => {
       const response = await getProviders();
 
       setProviders(response);
-    };
-
-    getProviders();
+    })();
   }, []);
+
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex flex-center gap-2">
@@ -34,9 +33,9 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLogged ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/document/create" className="black_btn">
+            <Link href="/create-document" className="black_btn">
               Insert Document
             </Link>
             <button onClick={signOut} className="outline_btn">
@@ -47,7 +46,7 @@ const Nav = () => {
                 className="rounded-full "
                 width={45}
                 height={45}
-                src={profile}
+                src={session?.user.image}
                 alt="image profile"
               ></Image>
             </Link>
@@ -61,7 +60,9 @@ const Nav = () => {
                   className="black_btn"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                ></button>
+                >
+                  Sign In
+                </button>
               ))}
           </>
         )}
@@ -69,13 +70,13 @@ const Nav = () => {
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLogged ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               className="rounded-full "
               width={45}
               height={45}
-              src={profile}
+              src={session?.user.image}
               alt="image profile"
               onClick={() => setToggleDropdown(!toggleDropdown)}
             />
@@ -117,7 +118,9 @@ const Nav = () => {
                   className="black_btn"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                ></button>
+                >
+                  Sign In
+                </button>
               ))}
           </>
         )}

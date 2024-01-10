@@ -1,3 +1,4 @@
+import Feed from "@/components/Feed";
 import React from "react";
 
 const Home = () => {
@@ -7,13 +8,14 @@ const Home = () => {
         Discover & Share
         <br className="" />
         <span className="orange_gradient text-center">
-          Powered Search Projects
+          Advanced Project Search
         </span>
       </h1>
       <p className="desc text-center">
         SearchK is a tool for searching projects by keywords made in Next JS
         that uses a non-relational database - Elasticsearch
       </p>
+      <Feed />
     </section>
   );
 };

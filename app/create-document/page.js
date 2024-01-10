@@ -7,9 +7,9 @@ import React, { useState } from "react";
 
 const CreateDocument = () => {
   const [submitting, setSubmitting] = useState(false);
-  const [doc, setDoc] = useState({ file: "", tag: "" });
+  const [doc, setDoc] = useState({ escopo: "", tag: "" });
+  const router = useRouter();
   const { data: session } = useSession();
-  const route = useRouter();
 
   const createDoc = async (e) => {
     e.preventDefault();
@@ -18,17 +18,19 @@ const CreateDocument = () => {
     try {
       const res = await fetch("/api/document/new", {
         method: "POST",
-        body: {
-          file: doc.file,
-          userId: session?.user.id,
+        body: JSON.stringify({
+          escopo: doc.escopo,
+          userId: session?.user.email,
           tag: doc.tag,
-        },
+        }),
       });
 
-      if (Response.ok) {
-        route.push("/");
+      if (res.ok) {
+        console.log("ok, criou");
+        router.push("/");
       }
     } catch (error) {
+      console.log("error");
       console.log(error);
     } finally {
       setSubmitting(false);

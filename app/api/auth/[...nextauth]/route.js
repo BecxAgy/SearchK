@@ -19,14 +19,13 @@ const handler = NextAuth({
     });
 
     //take id
-    session.user.id = userSession.user._id;
+    session.user.id = userSession._id.toString();
 
     return session;
   },
 
   async signIn({ profile }) {
     try {
-    } catch (error) {
       //Connect
       await connectToDB();
 
@@ -43,6 +42,8 @@ const handler = NextAuth({
           image: profile.picture,
         });
       }
+    } catch (error) {
+      console.log(error);
     }
   },
 });

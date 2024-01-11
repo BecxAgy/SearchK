@@ -9,7 +9,6 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: [true, "Username is required"],
-    match: [],
   },
   image: {
     type: String,

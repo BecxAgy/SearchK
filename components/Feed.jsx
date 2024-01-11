@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DocumentCard from "./DocumentCard";
+import { api, requestConfig } from "@/utils/config";
 
 const DocumentCardList = ({ data, handleTagClick }) => {
   return (
@@ -34,16 +35,26 @@ const Feed = () => {
 
   // Fetch searched documents
   const fetchSearchedDocuments = async () => {
+    const config = requestConfig("GET", null);
+
     try {
-      const response = await fetch(`/api/document/route?search=${searchText}`);
-      if (response.ok) {
-        const data = await response.json();
-        setSearchedResults(data);
-      } else {
-        console.error("Failed to fetch search results:", response.status);
+      const response = await fetch(
+        api + `searchsynonyms?index=kempetro&body=${searchText}`,
+        config
+      );
+      console.log("passou", searchText);
+
+      if (!response.ok) {
+        throw new Error(
+          `___|___Failed to fetch documents. Status: ${response.status}`
+        );
       }
+
+      const data = await response.json();
+      return new Response(JSON.stringify(data), { status: 200 });
     } catch (error) {
-      console.error("Error fetching search results:", error);
+      console.error(error);
+      return new Response("____Failed to fetch documents", { status: 500 });
     }
   };
 

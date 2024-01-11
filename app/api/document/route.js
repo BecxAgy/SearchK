@@ -1,11 +1,12 @@
 import { requestConfig } from "@/utils/config";
 
 export const GET = async (request) => {
+  const { search } = request.query;
   const config = requestConfig("GET", null);
 
   try {
     const response = await fetch(
-      api + `searchsynonyms?index=kempetro&body=${request}`,
+      api + `searchsynonyms?index=kempetro&body=${search}`,
       config
     );
 

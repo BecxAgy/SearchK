@@ -51,7 +51,7 @@ const Feed = () => {
       }
 
       const data = await response.json();
-      return new Response(JSON.stringify(data), { status: 200 });
+      setSearchedResults(data);
     } catch (error) {
       console.error(error);
       return new Response("____Failed to fetch documents", { status: 500 });

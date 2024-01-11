@@ -34,7 +34,7 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
           onClick={handleProfileClick}
         >
           <Image
-            src={doc.creator.image}
+            src={"/assets/images/profile.jpg"}
             alt="user_image"
             width={40}
             height={40}
@@ -43,10 +43,10 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
 
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">
-              {doc.creator.username}
+              Rebeca Aguiar
             </h3>
             <p className="font-inter text-sm text-gray-500">
-              {doc.creator.email}
+              {"beca.cout@gmail.com"}
             </p>
           </div>
         </div>
@@ -65,30 +65,13 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
         </div>
       </div>
 
-      <p className="my-4 font-satoshi text-sm text-gray-700">{doc.escopo}</p>
+      <p className="my-4 font-satoshi text-sm text-gray-700">{doc._id}</p>
       <p
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(doc.tag)}
       >
         #{doc.tag}
       </p>
-
-      {session?.user.id === doc.creator._id && pathName === "/profile" && (
-        <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
-          <p
-            className="font-inter text-sm green_gradient cursor-pointer"
-            onClick={handleEdit}
-          >
-            Edit
-          </p>
-          <p
-            className="font-inter text-sm orange_gradient cursor-pointer"
-            onClick={handleDelete}
-          >
-            Delete
-          </p>
-        </div>
-      )}
     </div>
   );
 };

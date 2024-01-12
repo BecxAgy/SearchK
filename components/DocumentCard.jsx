@@ -12,14 +12,6 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
 
   const [copied, setCopied] = useState("");
 
-  const handleProfileClick = () => {
-    console.log(doc);
-
-    if (doc.creator._id === session?.user.id) return router.push("/profile");
-
-    router.push(`/profile/${doc.creator._id}?name=${doc.creator.username}`);
-  };
-
   const handleCopy = () => {
     setCopied(doc.escopo);
     navigator.clipboard.writeText(doc.escopo);
@@ -29,10 +21,7 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <div
-          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
-          onClick={handleProfileClick}
-        >
+        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
           <Image
             src={"/assets/images/profile.jpg"}
             alt="user_image"
@@ -43,15 +32,13 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
 
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">
-              Rebeca Aguiar
+              {doc._id}
             </h3>
-            <p className="font-inter text-sm text-gray-500">
-              {"beca.cout@gmail.com"}
-            </p>
+            <p className="font-inter text-sm text-gray-500"></p>
           </div>
         </div>
 
-        <div className="copy_btn" onClick={handleCopy}>
+        {/* <div className="copy_btn" onClick={handleCopy}>
           <Image
             src={
               copied === doc.escopo
@@ -62,15 +49,15 @@ const DocumentCard = ({ doc, handleEdit, handleDelete, handleTagClick }) => {
             width={12}
             height={12}
           />
-        </div>
+        </div> */}
       </div>
 
-      <p className="my-4 font-satoshi text-sm text-gray-700">{doc._id}</p>
+      <p className="my-4 font-satoshi text-sm text-gray-700"></p>
       <p
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(doc.tag)}
       >
-        #{doc.tag}
+        Page {doc._source.page}
       </p>
     </div>
   );

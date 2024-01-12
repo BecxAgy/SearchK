@@ -18,21 +18,6 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
   const [documents, setAllDocuments] = useState([]);
 
-  // Fetch all documents
-  const fetchAllDocuments = async () => {
-    try {
-      const response = await fetch("/api/document");
-      if (response.ok) {
-        const data = await response.json();
-        setAllDocuments(data);
-      } else {
-        console.error("Failed to fetch documents:", response.status);
-      }
-    } catch (error) {
-      console.error("Error fetching documents:", error);
-    }
-  };
-
   // Fetch searched documents
   const fetchSearchedDocuments = async () => {
     const config = requestConfig("GET", null);
@@ -57,11 +42,6 @@ const Feed = () => {
       return new Response("____Failed to fetch documents", { status: 500 });
     }
   };
-
-  // Effect to fetch all documents on initial load
-  useEffect(() => {
-    fetchAllDocuments();
-  }, []);
 
   // Effect to fetch searched documents when searchText changes
   useEffect(() => {
